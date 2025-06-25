@@ -38,7 +38,7 @@ const Login = () => {
         className="flex rounded-xl shadow-2xl overflow-hidden"
         style={{ width: "900px", height: "600px", backgroundColor: "white" }}
       >
-        {/* Form */}
+     
         <div className="w-1/2 flex flex-col justify-center px-10">
           <div className="flex justify-center mb-6">
             <img src={logo} alt="CDT Logo" className="h-20 w-20" />

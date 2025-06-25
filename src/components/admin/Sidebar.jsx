@@ -48,15 +48,11 @@ const Sidebar = () => {
             <span>Reports</span>
           </Link>
 
-          <Link className="flex items-center space-x-3 text-gray-700 hover:text-blue-600">
-            <Cog6ToothIcon className="w-5 h-5" />
-            <span>Settings</span>
-          </Link>
+       
         </nav>
       </div>
 
-      {/* Logout Button */}
-      {/* Logout Button */}
+     
 <div className="mt-10 pt-6 border-t border-gray-200">
   <button
     onClick={handleLogout}
