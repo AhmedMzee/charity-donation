@@ -11,7 +11,7 @@ export default {
         '2xl': '1.5rem',
       },
       colors: {
-        primary: '#4f46e5', // Example blue
+        primary: '#4f46e5', 
       },
     },
   },

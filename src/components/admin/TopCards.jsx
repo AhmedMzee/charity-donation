@@ -1,9 +1,22 @@
+import { useEffect, useState } from "react";
+import { getAdminSummary } from "../../api/auth"; 
+
 const TopCards = () => {
+  const [summary, setSummary] = useState(null);
+
+ useEffect(() => {
+  getAdminSummary()
+    .then(setSummary)
+    .catch((err) => console.error("Failed to fetch summary", err));
+}, []);
+
+  if (!summary) return <p className="text-gray-600">Loading summary...</p>;
+
   const cards = [
-    { title: "Today's Money", value: "$53,000", percent: "+5%", color: "blue" },
-    { title: "Today's Users", value: "2,300", percent: "+3%", color: "green" },
-    { title: "New Clients", value: "+3,462", percent: "-2%", color: "red" },
-    { title: "Sales", value: "$103,430", percent: "+5%", color: "purple" },
+    { title: "Total Users", value: summary.totalUsers, color: "blue" },
+    { title: "Total Donations", value: `$${summary.totalDonations}`, color: "green" },
+    { title: "Total Projects", value: summary.totalProjects, color: "purple" },
+    { title: "Total Beneficiaries", value: summary.totalBeneficiaries, color: "cyan" },
   ];
 
   return (
@@ -13,13 +26,7 @@ const TopCards = () => {
           <p className="text-gray-500 text-sm">{card.title}</p>
           <div className="flex justify-between items-end mt-2">
             <h2 className="text-2xl font-bold text-gray-800">{card.value}</h2>
-            <span
-              className={`text-sm ${
-                card.percent.startsWith("+") ? "text-green-500" : "text-red-500"
-              }`}
-            >
-              {card.percent}
-            </span>
+            {/* You can add percentage comparison later if needed */}
           </div>
         </div>
       ))}

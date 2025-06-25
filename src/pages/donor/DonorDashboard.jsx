@@ -1,11 +1,13 @@
-import React from 'react'
+import TopCards from "../../components/donor/TopCards";
+import ChartCard from "../../components/donor/ChartCard";
 
 const DonorDashboard = () => {
   return (
-   <div className="p-6 text-center text-2xl font-bold text-green-600">
-    💖 Donor Dashboard (Under Construction)
-  </div>
-  )
-}
+    <div>
+      <TopCards />
+      <ChartCard />
+    </div>
+  );
+};
 
-export default DonorDashboard
+export default DonorDashboard;

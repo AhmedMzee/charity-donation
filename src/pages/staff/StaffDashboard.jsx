@@ -1,11 +1,14 @@
-import React from 'react'
+import React from "react";
+import TopCards from "../../components/staff/TopCards";
+import ChartCard from "../../components/staff/ChartCard";
 
 const StaffDashboard = () => {
   return (
-     <div className="p-6 text-center text-2xl font-bold text-purple-600">
-          🧰 NGO Staff Dashboard (Under Construction)
-      </div>
-  )
-}
+    <div>
+      <TopCards />
+      <ChartCard />
+    </div>
+  );
+};
 
-export default StaffDashboard
+export default StaffDashboard;
