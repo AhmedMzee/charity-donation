@@ -101,3 +101,56 @@ export const deleteBeneficiary = async (id) => {
   return response.data;
 };
 
+
+// Allocate donation
+export const allocateDonation = async (data) => {
+  const { projectId, beneficiaryId, amount, userId } = data;
+  const res = await axios.post(
+    `${API_BASE_URL}/allocations?projectId=${projectId}&beneficiaryId=${beneficiaryId}&amount=${amount}&userId=${userId}`
+  );
+  return res.data;
+};
+
+// Fetch allocations
+export const fetchAllocations = async () => {
+  const res = await axios.get(`${API_BASE_URL}/allocations`);
+  return res.data;
+};
+
+export const createAllocation = async ({ projectId, beneficiaryId, amount, userId }) => {
+  const res = await axios.post(
+    `${API_BASE_URL}/allocations?projectId=${projectId}&beneficiaryId=${beneficiaryId}&amount=${amount}&userId=${userId}`
+  );
+  return res.data;
+};
+
+export const updateAllocation = async (id, { projectId, beneficiaryId, amount, userId }) => {
+  const res = await axios.put(
+    `${API_BASE_URL}/allocations/${id}?projectId=${projectId}&beneficiaryId=${beneficiaryId}&amount=${amount}&userId=${userId}`
+  );
+  return res.data;
+};
+
+export const deleteAllocation = async (id) => {
+  const res = await axios.delete(`${API_BASE_URL}/allocations/${id}`);
+  return res.data;
+};
+
+export const fetchProjectsWithTotals = async () => {
+  const response = await axios.get(`${API_BASE_URL}/projects/with-donations`);
+  return response.data;
+};
+
+
+// // Optional: Fetch projects and beneficiaries
+// export const fetchProjects = async () => {
+//   const res = await axios.get(`${API_BASE_URL}/projects`);
+//   return res.data;
+// };
+
+// export const fetchBeneficiaries = async () => {
+//   const res = await axios.get(`${API_BASE_URL}/beneficiaries`);
+//   return res.data;
+// };
+
+

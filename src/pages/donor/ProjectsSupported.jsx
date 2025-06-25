@@ -1,20 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const ProjectsSupported = () => {
-  const supportedProjects = [
-    {
-      id: 1,
-      name: "Clean Water for Villages",
-      status: "Ongoing",
-      totalContributed: "$100",
-    },
-    {
-      id: 2,
-      name: "School Kits for Kids",
-      status: "Completed",
-      totalContributed: "$250",
-    },
-  ];
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const API_URL = "http://localhost:8080/api/projects"; // your backend projects endpoint
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await axios.get(API_URL);
+        setProjects(res.data);
+      } catch (err) {
+        console.error("Error fetching projects:", err);
+        setError("Failed to fetch projects.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  if (loading) return <p>Loading projects...</p>;
+  if (error) return <p className="text-red-600">{error}</p>;
 
   return (
     <div>
@@ -29,23 +40,33 @@ const ProjectsSupported = () => {
             </tr>
           </thead>
           <tbody>
-            {supportedProjects.map((project) => (
-              <tr key={project.id} className="border-t hover:bg-gray-50">
-                <td className="px-4 py-2">{project.name}</td>
-                <td className="px-4 py-2">
-                  <span
-                    className={`px-2 py-1 rounded text-sm ${
-                      project.status === "Completed"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-yellow-100 text-yellow-700"
-                    }`}
-                  >
-                    {project.status}
-                  </span>
+            {projects.length === 0 ? (
+              <tr>
+                <td colSpan="3" className="text-center py-4">
+                  No projects found.
                 </td>
-                <td className="px-4 py-2">{project.totalContributed}</td>
               </tr>
-            ))}
+            ) : (
+              projects.map((project) => (
+                <tr key={project.id} className="border-t hover:bg-gray-50">
+                  <td className="px-4 py-2">{project.name}</td>
+                  <td className="px-4 py-2">
+                    <span
+                      className={`px-2 py-1 rounded text-sm ${
+                        project.status === "Completed"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}
+                    >
+                      {project.status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-2">
+                    ${project.totalContributed || 0}
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
